@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Your Email</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff; 
+            border: 1px solid #dddddd; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+        .verify-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            width:120px;
+            background: url("data:image/png;base64,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");
+           
+        }
+        svg {
+            width: 100px; /* Przykładowa szerokość SVG */
+            height: 100px; /* Przykładowa wysokość SVG */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="svg-container">
+       
+    </div>
+    <h2>{Header}</h2>
+    <p>{Description}</p>
+    <a href="{VerificationLink}" class="verify-button">Verify Email</a>
+    <p>If you did not request this, please ignore this email.</p>
+</div>
+</body>
+</html>

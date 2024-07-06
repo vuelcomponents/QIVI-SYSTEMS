@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import '@mdi/font/css/materialdesignicons.css';
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.ag-theme-quartz {
+  --ag-foreground-color: theme(colors.surface.700/90%);
+  --ag-background-color: theme(colors.west.1);
+  --ag-header-background-color: theme(colors.west.2);
+  --ag-header-foreground-color: theme(colors.west.3);
+  --ag-secondary-foreground-color: theme(colors.surface.700 / 90%);
+  --ag-active-color: theme(colors.primary.400);
+  --ag-range-selection-border-color: theme(colors.primary.400 / 80%);
+  --ag-row-border-style: none;
+  --ag-header-column-resize-handle-height: 40%;
+  --ag-header-column-resize-handle-width: 1px;
+  --ag-font-family: theme(fontFamily.mulish);
+  --ag-card-shadow: none;
+  --ag-selected-row-background-color: theme(colors.primary.400 / 40%);
+}
+
+.ag-theme-quartz {
+  --ag-odd-row-background-color: theme(colors.surface.700 / 3%);
+}
+
+.ag-theme-quartz {
+  --ag-border-color: theme(colors.surface.200);
+}
+
+.ag-cell-focus {
+  --ag-border-radius: theme(borderRadius.md);
+  border-radius: theme(borderRadius.md);
+}
+
+.ag-cell-focus .ag-input-field-input {
+  --ag-input-focus-border-color: transparent;
+  background-color: theme(colors.surface.900);
+}
+
+.dark .ag-theme-quartz {
+  --ag-foreground-color: theme(colors.surface.0);
+  --ag-background-color: theme(colors.surface.950);
+  --ag-header-background-color: theme(colors.surface.950);
+  --ag-secondary-foreground-color: theme(colors.surface.0 / 90%);
+  --ag-active-color: theme(colors.surface.100);
+  --ag-range-selection-border-color: theme(colors.primary.400 / 80%);
+  --ag-row-border-style: none;
+  --ag-header-column-resize-handle-height: 40%;
+  --ag-header-column-resize-handle-width: 1px;
+  --ag-font-family: theme(fontFamily.mulish);
+  --ag-card-shadow: none;
+  --ag-selected-row-background-color: theme(colors.mintSplash.100 / 5%);
+}
+.ag-row-selected {
+  box-shadow: 0 0 3px 3px #00000010;
+}
+.ag-header-cell-text {
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+}
+.dark .ag-header-cell-text {
+  color: theme(colors.surface.200 / 40%);
+}
+.dark .ag-theme-quartz {
+  --ag-odd-row-background-color: theme(colors.surface.700 / 0%);
+}
+
+.dark .ag-theme-quartz {
+  --ag-border-color: theme(colors.surface.700);
+}
+
+.dark .ag-cell-focus {
+  --ag-border-radius: theme(borderRadius.md);
+  border-radius: theme(borderRadius.md);
+}
+
+.dark .ag-cell-focus .ag-input-field-input {
+  --ag-input-focus-border-color: transparent;
+  background-color: theme(colors.surface.900);
+}
+.centered * {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .ag-label,
+  .ag-paging-row-summary-panel {
+    font-size: 0.7em;
+  }
+  .ag-paging-row-summary-panel,
+  .ag-paging-description {
+    display: none;
+  }
+}
+@media (max-width: 1580px) {
+  .grid-ag {
+    .ag-label,
+    .ag-paging-row-summary-panel {
+      font-size: 0.7em;
+    }
+    .ag-paging-row-summary-panel,
+    .ag-paging-description {
+      display: none;
+    }
+  }
+}
+
+.configured-input {
+  input {
+    @media (max-width: 800px) {
+      width: 100px;
+    }
+  }
+}
+
+.input-align-right input{
+    text-align:right!important;
+}

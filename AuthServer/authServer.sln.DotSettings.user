@@ -1,0 +1,39 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=06bfbe3a_002D5a61_002D4c7e_002Dbf34_002D313b6cfd4530/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VerifyDeviceGridByAdmin" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.DeviceServiceTest.VerifyDeviceGridByAdmin&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=86ea9184_002Df6b6_002D414f_002D8c6d_002Da82a477c58bb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Authorized_Success_ReturnsAuthResponse #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFolder&gt;62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B/d:Tests&lt;/ProjectFolder&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=944b65bc_002D745e_002D4351_002D948d_002D900730564252/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddUser_ReturnsUserDtoOrThrowsActivityDeclinedException" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.AddUser_ReturnsUserDtoOrThrowsActivityDeclinedException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.UpdateUser_ReturnsUserDto&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.TokenServiceTest.WriteToken_OutToken_OutRefreshToken_AreTokensValid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.TokenServiceTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.DeleteMany_Successful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.DeleteMany_ReturnsListUserDto&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthMailerTest.SendVerificationEmail_IsSuccessful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthMailerTest.SendDeviceVerificationEmail_IsSuccessful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthMailerTest.SendResetPassword_IsSuccessful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthMailerTest.SendChangeEmailEmail_IsSuccessful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthServiceTest.Login_IsSuccessful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthServiceTest.Login_ThrowsIncorrectFormDataException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthServiceTest.Login_ThrowsIpBlockedException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthServiceTest.Login_ThrowsDeviceBlockedException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.AuthServiceTest.Authorized_Success_ReturnsAuthResponse&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9b73abf5_002D17bf_002D431e_002D8142_002Dcbb8d3ae0f53/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;AuthServerTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.AddUser_ReturnsUserDtoOrThrowsActivityDeclinedException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.UpdateUser_ReturnsUserDto&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.UserServiceTest.DeleteMany_Successful&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B::net8.0::authServer.Tests.TokenServiceTest.WriteToken_OutToken_OutRefreshToken_AreTokensValid&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c80b1c2d_002Da8de_002D4de3_002D9aa3_002D44869e51b01f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Authorized_Success_ReturnsAuthResponse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFolder&gt;62F2D2F7-FE3E-48C5-A1A1-571F6BBBC25B/d:Tests&lt;/ProjectFolder&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

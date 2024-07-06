@@ -1,0 +1,6 @@
+@authServer_HostAddress = http://192.168.1.81:5026
+
+GET {{authServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
