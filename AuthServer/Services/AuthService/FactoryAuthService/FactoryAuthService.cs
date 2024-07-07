@@ -14,13 +14,11 @@ using Microsoft.Extensions.Options;
 namespace authServer.Services.AuthService.FactoryAuthService;
 
 public class FactoryAuthService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    IGettableLicenceRepository gettableLicenceRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
-    ISettableNotificationRepository settableNotificationRepository,
+    IUserRepository userRepository,
+    IBlockedTokenRepository blockedTokenRepository,
+    ILicenceRepository licenceRepository,
+    ISessionTokenRepository sessionTokenRepository,
+    INotificationRepository settableNotificationRepository,
     IMapper mapper,
     ITokenBlockService tokenBlockService,
     ITokenExpiredRemovalService tokenExpiredRemovalService,
@@ -36,12 +34,10 @@ public class FactoryAuthService(
     IAuthDataAccessor authDataAccessor
 )
     : BaseAuthService(
-        gettableUserRepository,
-        settableUserRepository,
-        settableBlockedTokenRepository,
-        gettableBlockedTokenRepository,
-        gettableLicenceRepository,
-        settableSessionTokenRepository,
+        userRepository,
+        blockedTokenRepository,
+        licenceRepository,
+        sessionTokenRepository,
         settableNotificationRepository,
         mapper,
         tokenBlockService,
@@ -62,8 +58,8 @@ public class FactoryAuthService(
     public IAuthorizationService CreateAuthorizationService()
     {
         return new AuthorizationService(
-            GettableUserRepository,
-            SettableSessionTokenRepository,
+            UserRepository,
+            SessionTokenRepository,
             Mapper,
             TokenBlockService,
             TokenReadService,
@@ -77,8 +73,7 @@ public class FactoryAuthService(
     public IAuthUserService CreateAuthUserService()
     {
         return new AuthUserService(
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             SettableNotificationRepository,
             Mapper,
             QuickActions
@@ -88,9 +83,8 @@ public class FactoryAuthService(
     public IChangeEmailService CreateChangeEmailService()
     {
         return new ChangeEmailService(
-            GettableUserRepository,
-            SettableBlockedTokenRepository,
-            GettableBlockedTokenRepository,
+            UserRepository,
+            BlockedTokenRepository,
             TokenWriteService,
             TokenReadService,
             TokenValidationService,
@@ -103,8 +97,7 @@ public class FactoryAuthService(
     public IChangePasswordService CreateChangePasswordService()
     {
         return new ChangePasswordService(
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             Mapper,
             HashService
         );
@@ -113,8 +106,7 @@ public class FactoryAuthService(
     public ILoginService CreateLoginService()
     {
         return new LoginService(
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             MailerVerificationService,
             HashService,
@@ -131,8 +123,8 @@ public class FactoryAuthService(
     public IRegisterSuperAdminService CreateRegisterSuperAdminService()
     {
         return new RegisterSuperAdminService(
-            GettableLicenceRepository,
-            SettableUserRepository,
+            LicenceRepository,
+            UserRepository,
             Mapper,
             HashService
         );
@@ -141,9 +133,8 @@ public class FactoryAuthService(
     public IResetPasswordService CreateResetPasswordService()
     {
         return new ResetPasswordService(
-            GettableUserRepository,
-            SettableBlockedTokenRepository,
-            GettableBlockedTokenRepository,
+            UserRepository,
+            BlockedTokenRepository,
             TokenWriteService,
             TokenReadService,
             TokenValidationService,
@@ -158,9 +149,8 @@ public class FactoryAuthService(
         IResetPasswordService resetPasswordService = CreateResetPasswordService();
         ILoginService loginService = CreateLoginService();
         return new VerificationService(
-            GettableUserRepository,
-            SettableBlockedTokenRepository,
-            GettableBlockedTokenRepository,
+            UserRepository,
+            BlockedTokenRepository,
             TokenReadService,
             TokenValidationService,
             resetPasswordService,

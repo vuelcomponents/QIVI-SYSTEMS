@@ -6,73 +6,59 @@ using Microsoft.Extensions.Options;
 namespace authServer.Services.TokenService_.FactoryTokenService;
 
 public class FactoryTokenService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
     : BaseTokenService(
-        gettableSessionTokenRepository,
-        settableSessionTokenRepository,
+        sessionTokenRepository,
         jwtOptions,
-        gettableBlockedTokenRepository,
-        settableBlockedTokenRepository
+        blockedTokenRepository
     ),
         IFactoryTokenService
 {
     public ITokenExpiredRemovalService CreateTokenExpiredRemovalService()
     {
         return new TokenExpiredRemovalService(
-            GettableSessionTokenRepository,
-            SettableSessionTokenRepository,
+            SessionTokenRepository,
             JwtOptions,
-            GettableBlockedTokenRepository,
-            SettableBlockedTokenRepository
+            BlockedTokenRepository
         );
     }
 
     public ITokenReadService CreateTokenReadService()
     {
         return new TokenReadService(
-            GettableSessionTokenRepository,
-            SettableSessionTokenRepository,
+            SessionTokenRepository,
             JwtOptions,
-            GettableBlockedTokenRepository,
-            SettableBlockedTokenRepository
+            BlockedTokenRepository
         );
     }
 
     public ITokenValidationService CreateTokenValidationService()
     {
         return new TokenValidationService(
-            GettableSessionTokenRepository,
-            SettableSessionTokenRepository,
+            SessionTokenRepository,
             JwtOptions,
-            GettableBlockedTokenRepository,
-            SettableBlockedTokenRepository
+            BlockedTokenRepository
         );
     }
 
     public ITokenWriteService CreateTokenWriteService()
     {
         return new TokenWriteService(
-            GettableSessionTokenRepository,
-            SettableSessionTokenRepository,
+            SessionTokenRepository,
             JwtOptions,
-            GettableBlockedTokenRepository,
-            SettableBlockedTokenRepository
+            BlockedTokenRepository
         );
     }
 
     public ITokenBlockService CreateTokenBlockService()
     {
         return new TokenBlockService(
-            GettableSessionTokenRepository,
-            SettableSessionTokenRepository,
+            SessionTokenRepository,
             JwtOptions,
-            GettableBlockedTokenRepository,
-            SettableBlockedTokenRepository
+            BlockedTokenRepository
         );
     }
 }

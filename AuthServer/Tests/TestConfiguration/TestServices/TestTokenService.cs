@@ -19,11 +19,9 @@ namespace authServer.Tests.TestConfiguration.TestServices
         )
         {
             IFactoryTokenService factoryTokenService = new FactoryTokenService(
-                testRepositories.GettableSessionTokenRepository,
-                testRepositories.SettableSessionTokenRepository,
+                testRepositories.SessionTokenRepository,
                 jwtOptions,
-                testRepositories.GettableBlockedTokenRepository,
-                testRepositories.SettableBlockedTokenRepository
+                testRepositories.BlockedTokenRepository
             );
             TokenBlockService = factoryTokenService.CreateTokenBlockService();
             TokenExpiredRemovalService = factoryTokenService.CreateTokenExpiredRemovalService();

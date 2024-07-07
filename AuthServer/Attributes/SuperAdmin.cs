@@ -24,12 +24,12 @@ public sealed class SuperAdmin : ActionFilterAttribute
         var tokenReadService =
             context.HttpContext.RequestServices.GetRequiredService<ITokenReadService>();
         var userRepository =
-            context.HttpContext.RequestServices.GetRequiredService<IGettableUserRepository>();
+            context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
         var dataAccessor =
             context.HttpContext.RequestServices.GetRequiredService<IAuthDataAccessor>();
 
         Int64 userId = tokenReadService.GetUserId(token!);
-        User? user = userRepository.GetById(userId);
+        User? user = userRepository.Get(u=>u.Id.Equals(userId));
 
         if (user == null)
         {

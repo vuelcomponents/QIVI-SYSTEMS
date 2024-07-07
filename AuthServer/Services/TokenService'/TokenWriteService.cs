@@ -22,18 +22,14 @@ public interface ITokenWriteService
 }
 
 public class TokenWriteService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
     : BaseTokenService(
-        gettableSessionTokenRepository,
-        settableSessionTokenRepository,
+        sessionTokenRepository,
         jwtOptions,
-        gettableBlockedTokenRepository,
-        settableBlockedTokenRepository
+        blockedTokenRepository
     ),
         ITokenWriteService
 {

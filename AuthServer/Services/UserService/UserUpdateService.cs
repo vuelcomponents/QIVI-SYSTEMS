@@ -20,8 +20,7 @@ public class UserUpdateService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -29,8 +28,7 @@ public class UserUpdateService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -39,7 +37,7 @@ public class UserUpdateService(
     public async Task<UserDto> UpdateUser(User admin, UserUpdateDto updateUser)
     {
         var dbUpdateUser =
-            await GettableUserRepository.GetByIdAsync(updateUser.Id ?? 0, (u => u.Licences))
+            await UserRepository.GetAsync((u=>u.Id.Equals(updateUser.Id ?? 0)), (u => u.Licences))
             ?? throw new UserDoesNotExistException("updatedUserCouldNotBeFound");
 
         if (!(admin.Users.Any(u => u.Id == dbUpdateUser.Id)))
@@ -48,7 +46,7 @@ public class UserUpdateService(
         }
         QuickActions.QuickUpdate(updateUser, dbUpdateUser, ["Email", "Licences", "Block"]);
         HandleLicences();
-        await GettableUserRepository.SaveAsync();
+        await UserRepository.SaveAsync();
 
         return Mapper.Map<UserDto>(dbUpdateUser);
 

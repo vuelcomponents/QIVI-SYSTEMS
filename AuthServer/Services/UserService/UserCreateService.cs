@@ -21,8 +21,7 @@ public class UserCreateService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -30,8 +29,7 @@ public class UserCreateService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -43,7 +41,7 @@ public class UserCreateService(
         {
             throw new ActivityDeclinedException("maximumNumberOfUsers");
         }
-        if (GettableUserRepository.GetAll().Any(u => u.Email == createUser.Email))
+        if ((await UserRepository.GetAllAsync()).Any(u => u.Email == createUser.Email))
         {
             throw new ActivityDeclinedException("emailTaken");
         }
@@ -55,7 +53,7 @@ public class UserCreateService(
         HandleLicences();
         admin.Users.Add(dbUser);
         dbUser.VerifyEmailDateTime = DateTime.Now;
-        await GettableUserRepository.SaveAsync();
+        await UserRepository.SaveAsync();
 
         _ = Task.Run(() =>
         {

@@ -22,9 +22,9 @@ public sealed class Admin : ActionFilterAttribute
             var tokenReadService =
                 context.HttpContext.RequestServices.GetRequiredService<ITokenReadService>();
             var userRepository =
-                context.HttpContext.RequestServices.GetRequiredService<IGettableUserRepository>();
+                context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
             Int64 userId = tokenReadService.GetUserId(token!);
-            User? user = userRepository.GetById(userId, u => u.Users);
+            User? user = userRepository.Get(u=> u.Id.Equals(userId), u => u.Users);
             if (user == null)
             {
                 context.Result = new UnauthorizedResult();

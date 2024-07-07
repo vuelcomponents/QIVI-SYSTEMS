@@ -21,8 +21,7 @@ public class UserBlockService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -30,8 +29,7 @@ public class UserBlockService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -46,7 +44,7 @@ public class UserBlockService(
                 admin.Users.FirstOrDefault(u => u.Id == user.Id)
                 ?? throw new UserDoesNotExistException();
             adminUser.Blocked = blocked;
-            await GettableUserRepository.SaveAsync();
+            await UserRepository.SaveAsync();
             blockedList.Add(adminUser);
         }
         return blockedList.Select(Mapper.Map<UserDto>).ToList();

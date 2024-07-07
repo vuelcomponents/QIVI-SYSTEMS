@@ -19,8 +19,7 @@ public interface ILoginService
 }
 
 public class LoginService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IMailerVerificationService mailerVerificationService,
     IHashService hashService,
@@ -35,8 +34,8 @@ public class LoginService(
         if (user.Password.IsNullOrEmpty())
             throw new IncorrectFormDataException("youMustFillAPassword");
 
-        User? dbUser = await gettableUserRepository.GetByEmailIncludeDeviceWithTokenAsync(
-            user.Email!
+        User? dbUser = await userRepository.GetAndIncludeDeviceWithTokenAsync(
+            u=> u.Email.Equals(user.Email!)
         );
 
         if (dbUser == null)
@@ -61,7 +60,7 @@ public class LoginService(
         dbUser.MonthlyVisits++;
         dbUser.MonthlyActivities++;
         dbUser.RefreshToken = Encoding.UTF8.GetBytes(refreshToken);
-        await gettableUserRepository.SaveAsync();
+        await userRepository.SaveAsync();
 
         AuthResponse authResponse = new AuthResponse
         {
@@ -82,7 +81,7 @@ public class LoginService(
             if (isVerifyEmailTimeNullOrPreviousSessionExpired)
             {
                 dbUser.VerifyEmailDateTime = DateTime.Now;
-                await gettableUserRepository.SaveAsync();
+                await userRepository.SaveAsync();
                 _ = Task.Run(() =>
                 {
                     tokenWriteService.WriteVerificationToken(dbUser, out string vToken);
@@ -119,13 +118,13 @@ public class LoginService(
             dbUser.Devices.Add(newDevice);
             newDevice.SignedInDateTime = DateTime.Now;
 
-            await gettableUserRepository.SaveAsync();
+            await userRepository.SaveAsync();
 
             if (dbUser.ClaimDeviceVerification)
             {
                 tokenWriteService.WriteDeviceVerificationToken(dbUser, out string dbToken);
                 dbUser.VerifyDeviceDateTime = DateTime.Now;
-                await settableUserRepository.SaveAsync();
+                await userRepository.SaveAsync();
                 _ = Task.Run(() =>
                 {
                     mailerVerificationService.SendDeviceVerificationEmail(
@@ -170,7 +169,7 @@ public class LoginService(
         {
             tokenWriteService.WriteDeviceVerificationToken(dbUser, out string dbToken);
             dbUser.VerifyDeviceDateTime = DateTime.Now;
-            await gettableUserRepository.SaveAsync();
+            await userRepository.SaveAsync();
             _ = Task.Run(() =>
             {
                 mailerVerificationService.SendDeviceVerificationEmail(dbUser, device.Id, dbToken);

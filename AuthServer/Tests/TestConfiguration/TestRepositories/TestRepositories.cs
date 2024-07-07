@@ -9,24 +9,15 @@ namespace authServer.Tests.TestConfiguration.TestRepositories;
 
 public class TestRepositories(AuthDataContext testContext)
 {
-    public readonly IGettableUserRepository GettableUserRepository = new GettableUserRepository(
+    public readonly IUserRepository UserRepository = new UserRepository(
         testContext
     );
-    public readonly ISettableUserRepository SettableUserRepository = new SettableUserRepository(
-        testContext
-    );
-    public readonly IGettableLicenceRepository GettableLicenceRepository =
-        new GettableLicenceRepository(testContext);
-    public readonly ISettableLicenceRepository SettableLicenceRepository =
-        new SettableLicenceRepository(testContext);
-    public readonly IGettableBlockedTokenRepository GettableBlockedTokenRepository =
-        new GettableBlockedTokenRepository(testContext);
-    public readonly ISettableBlockedTokenRepository SettableBlockedTokenRepository =
-        new SettableBlockedTokenRepository(testContext);
-    public readonly IGettableSessionTokenRepository GettableSessionTokenRepository =
-        new GettableSessionTokenRepository(testContext);
-    public readonly ISettableSessionTokenRepository SettableSessionTokenRepository =
-        new SettableSessionTokenRepository(testContext);
-    public readonly ISettableNotificationRepository SettableNotificationRepository =
-        new SettableNotificationRepository(testContext);
+    public readonly ILicenceRepository LicenceRepository =
+        new LicenceRepository(testContext);
+    public readonly IBlockedTokenRepository BlockedTokenRepository =
+        new BlockedTokenRepository(testContext);
+    public readonly ISessionTokenRepository SessionTokenRepository =
+        new SessionTokenRepository(testContext);
+    public readonly INotificationRepository SettableNotificationRepository =
+        new NotificationRepository(testContext);
 }

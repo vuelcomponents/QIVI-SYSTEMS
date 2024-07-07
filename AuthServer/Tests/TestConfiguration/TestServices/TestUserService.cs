@@ -31,8 +31,7 @@ public class TestUserService
             mapper,
             quickActions,
             mailerVerificationService,
-            testRepositories.GettableUserRepository,
-            testRepositories.SettableUserRepository,
+            testRepositories.UserRepository,
             tokenWriteService,
             jwtOptions
         );

@@ -13,8 +13,8 @@ public interface IRegisterSuperAdminService
 }
 
 public class RegisterSuperAdminService(
-    IGettableLicenceRepository gettableLicenceRepository,
-    ISettableUserRepository settableUserRepository,
+    ILicenceRepository licenceRepository,
+    IUserRepository userRepository,
     IMapper mapper,
     IHashService hashService
 ) : IRegisterSuperAdminService
@@ -30,11 +30,11 @@ public class RegisterSuperAdminService(
             HrtLicence = true,
             Verified = true,
             LombanditLicence = true,
-            Licences = new() { (await gettableLicenceRepository.GetByIdAsync(1))! },
+            Licences = new() { (await licenceRepository.GetAsync((l => l.Id.Equals(1))))! },
             Role = Role.SUPERADMIN
         };
-        settableUserRepository.Create(newUser);
-        await settableUserRepository.SaveAsync();
+        userRepository.Create(newUser);
+        await userRepository.SaveAsync();
         return mapper.Map<UserDto>(user);
     }
 }

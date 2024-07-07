@@ -12,8 +12,7 @@ public class FactoryUserService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -21,8 +20,7 @@ public class FactoryUserService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -34,8 +32,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );
@@ -47,8 +44,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );
@@ -60,8 +56,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );
@@ -73,8 +68,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );
@@ -86,8 +80,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );
@@ -99,8 +92,7 @@ public class FactoryUserService(
             Mapper,
             QuickActions,
             MailerVerificationService,
-            GettableUserRepository,
-            SettableUserRepository,
+            UserRepository,
             TokenWriteService,
             JwtOptions
         );

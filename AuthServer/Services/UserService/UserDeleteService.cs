@@ -20,8 +20,7 @@ public class UserDeleteService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -29,8 +28,7 @@ public class UserDeleteService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -42,8 +40,8 @@ public class UserDeleteService(
             .Users.ToList()
             .Where(dbU => users.Any(u => u.Id == dbU.Id))
             .ToList();
-        SettableUserRepository.DeleteMany(dbUsers);
-        await SettableUserRepository.SaveAsync();
+        UserRepository.DeleteMany(dbUsers);
+        await UserRepository.SaveAsync();
         return dbUsers.Select(Mapper.Map<UserDto>).ToList();
     }
 }

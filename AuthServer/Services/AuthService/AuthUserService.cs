@@ -18,9 +18,8 @@ public interface IAuthUserService
 }
 
 public class AuthUserService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
-    ISettableNotificationRepository settableNotificationRepository,
+    IUserRepository userRepository,
+    INotificationRepository settableNotificationRepository,
     IMapper mapper,
     IQuickActions quickActions
 ) : IAuthUserService
@@ -35,13 +34,13 @@ public class AuthUserService(
             );
         }
         quickActions.QuickUpdate(user, dbUser, excluded);
-        await settableUserRepository.SaveAsync();
+        await userRepository.SaveAsync();
         return mapper.Map<UserDto>(dbUser);
     }
 
     public async Task<UserDto> GetSelf(Int64 userId)
     {
-        return mapper.Map<UserDto>(await gettableUserRepository.GetByIdAsync(userId))!;
+        return mapper.Map<UserDto>(await userRepository.GetAsync(u=> u.Id.Equals(userId)))!;
     }
 
     public List<NotificationDto> GetNotifications(User user)

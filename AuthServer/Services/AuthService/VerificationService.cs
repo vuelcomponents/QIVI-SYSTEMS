@@ -13,9 +13,8 @@ public interface IVerificationService
 }
 
 public class VerificationService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
+    IUserRepository userRepository,
+    IBlockedTokenRepository blockedTokenRepository,
     ITokenReadService tokenReadService,
     ITokenValidationService tokenValidationService,
     IResetPasswordService resetPasswordService,
@@ -30,7 +29,7 @@ public class VerificationService(
         }
 
         if (
-            gettableBlockedTokenRepository.Has(bt =>
+            blockedTokenRepository.Has(bt =>
                 bt.Token == verificationToken && bt.Discriminator == "BlockedVerifyToken"
             )
         )
@@ -39,7 +38,7 @@ public class VerificationService(
         }
 
         Int64 userId = tokenReadService.GetUserId(verificationToken);
-        User? dbUser = await gettableUserRepository.GetByIdAsync(userId);
+        User? dbUser = await userRepository.GetAsync(u=> u.Id.Equals(userId));
         if (dbUser == null)
         {
             throw new TokenDataException("dataInvalidAuthorizationKey");
@@ -58,8 +57,8 @@ public class VerificationService(
             Token = verificationToken,
             DateTime = DateTime.Now
         };
-        settableBlockedTokenRepository.Create(blockedVerifyToken, "BlockedVerifyToken");
-        await settableBlockedTokenRepository.SaveAsync();
+        blockedTokenRepository.Create(blockedVerifyToken, "BlockedVerifyToken");
+        await blockedTokenRepository.SaveAsync();
 
         resetPasswordService.InitResetPassword(dbUser.Email, true, out string token, false);
         return token;
@@ -68,7 +67,7 @@ public class VerificationService(
     public async Task TrySendVerificationToUser(string email)
     {
         var dbUser =
-            await gettableUserRepository.GetByEmailAsync(email)
+            await userRepository.GetAsync(u=>u.Email.Equals(email))
             ?? throw new UserDoesNotExistException("userDoesNotExist");
         await loginService.HandleUnverifiedUser(dbUser);
         throw new AlreadyVerifiedException("youHaveAlreadyVerifiedYourAccount");

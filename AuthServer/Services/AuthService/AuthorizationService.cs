@@ -18,8 +18,8 @@ public interface IAuthorizationService
 }
 
 public class AuthorizationService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    IUserRepository userRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IMapper mapper,
     ITokenBlockService tokenBlockService,
     ITokenReadService tokenReadService,
@@ -32,7 +32,7 @@ public class AuthorizationService(
     public async Task<AuthResponse> Authorized(string token, long id)
     {
         var dbUser =
-            await gettableUserRepository.GetByIdAsync(Convert.ToInt64(id))
+            await userRepository.GetAsync(u=> u.Id .Equals(Convert.ToInt64(id)))
             ?? throw new UnauthorizedAccessException();
 
         TimeSpan expirationTimeToken = tokenReadService.GetTimeToExpiration(token);
@@ -108,12 +108,12 @@ public class AuthorizationService(
                 tokenWriteService.WriteToken(dbUser, out string newToken, out _);
 
                 var device = authDataAccessor.Device!;
-                settableSessionTokenRepository.DeleteMany([device.Token!]);
+                sessionTokenRepository.DeleteMany([device.Token!]);
 
                 device.Token = new SessionToken { Token = newToken, DateTime = DateTime.Now, };
                 device.SignedInDateTime = DateTime.Now;
                 dbUser.MonthlyActivities++;
-                settableSessionTokenRepository.Save();
+                sessionTokenRepository.Save();
 
                 token = $"{newToken}";
                 changed = true;

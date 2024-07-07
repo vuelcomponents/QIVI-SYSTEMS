@@ -12,8 +12,7 @@ public class BaseUserService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -22,8 +21,7 @@ public class BaseUserService(
     protected readonly IQuickActions QuickActions = quickActions;
     protected readonly IMailerVerificationService MailerVerificationService =
         mailerVerificationService;
-    protected readonly IGettableUserRepository GettableUserRepository = gettableUserRepository;
-    protected readonly ISettableUserRepository SettableUserRepository = settableUserRepository;
+    protected readonly IUserRepository UserRepository = userRepository;
     protected readonly ITokenWriteService TokenWriteService = tokenWriteService;
     protected readonly IOptions<JwtOptions> JwtOptions = jwtOptions;
 }

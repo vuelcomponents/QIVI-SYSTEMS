@@ -33,12 +33,10 @@ public class TestAuthService
     )
     {
         IFactoryAuthService factoryAuthService = new FactoryAuthService(
-            testRepositories.GettableUserRepository,
-            testRepositories.SettableUserRepository,
-            testRepositories.SettableBlockedTokenRepository,
-            testRepositories.GettableBlockedTokenRepository,
-            testRepositories.GettableLicenceRepository,
-            testRepositories.SettableSessionTokenRepository,
+            testRepositories.UserRepository,
+            testRepositories.BlockedTokenRepository,
+            testRepositories.LicenceRepository,
+            testRepositories.SessionTokenRepository,
             testRepositories.SettableNotificationRepository,
             mapper,
             testTokenService.TokenBlockService,

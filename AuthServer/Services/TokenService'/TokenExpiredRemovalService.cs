@@ -18,18 +18,14 @@ public interface ITokenExpiredRemovalService
 }
 
 public class TokenExpiredRemovalService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
     : BaseTokenService(
-        gettableSessionTokenRepository,
-        settableSessionTokenRepository,
+        sessionTokenRepository,
         jwtOptions,
-        gettableBlockedTokenRepository,
-        settableBlockedTokenRepository
+        blockedTokenRepository
     ),
         ITokenExpiredRemovalService
 {
@@ -38,15 +34,15 @@ public class TokenExpiredRemovalService(
         DateTime expiryTimeAgo = DateTime.Now.AddMinutes(-JwtOptions.Value.TokenExpiryMinutes);
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t =>
+            var expiredTokens = BlockedTokenRepository.GetAll(t =>
                 t.DateTime < expiryTimeAgo
             );
 
             if (expiredTokens.Count < 1)
                 return;
 
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {
@@ -61,14 +57,14 @@ public class TokenExpiredRemovalService(
         );
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t =>
+            var expiredTokens = BlockedTokenRepository.GetAll(t =>
                 t.Discriminator == "BlockedDeviceVerifyToken" && t.DateTime < expiryTimeAgo
             );
 
             if (expiredTokens.Count < 1)
                 return;
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {
@@ -81,17 +77,17 @@ public class TokenExpiredRemovalService(
         DateTime expiryTimeAgo = DateTime.Now.AddMinutes(-JwtOptions.Value.TokenExpiryMinutes);
         try
         {
-            var expiredTokens = GettableSessionTokenRepository.GetAll(t =>
+            var expiredTokens = await SessionTokenRepository.GetAllAsync(t =>
                 t.DateTime < expiryTimeAgo
             );
 
-            SettableSessionTokenRepository.DeleteMany(expiredTokens);
+            SessionTokenRepository.DeleteMany(expiredTokens);
 
             if (expiredTokens.Count < 1)
                 return;
             try
             {
-                await SettableSessionTokenRepository.SaveAsync();
+                await SessionTokenRepository.SaveAsync();
             }
             catch (Exception e)
             {
@@ -111,13 +107,13 @@ public class TokenExpiredRemovalService(
         );
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t => t.DateTime < expiryAgo);
+            var expiredTokens = BlockedTokenRepository.GetAll(t => t.DateTime < expiryAgo);
 
             if (expiredTokens.Count < 1)
                 return;
 
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {
@@ -132,15 +128,15 @@ public class TokenExpiredRemovalService(
         );
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t =>
+            var expiredTokens = BlockedTokenRepository.GetAll(t =>
                 t.DateTime < expiryTimeAgo
             );
 
             if (expiredTokens.Count < 1)
                 return;
 
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {
@@ -155,14 +151,14 @@ public class TokenExpiredRemovalService(
         );
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t =>
+            var expiredTokens = BlockedTokenRepository.GetAll(t =>
                 t.DateTime < threeHoursAgo
             );
 
             if (expiredTokens.Count < 1)
                 return;
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {
@@ -177,15 +173,15 @@ public class TokenExpiredRemovalService(
         );
         try
         {
-            var expiredTokens = GettableBlockedTokenRepository.GetAll(t =>
+            var expiredTokens = BlockedTokenRepository.GetAll(t =>
                 t.DateTime < expiryTimeAgo
             );
 
             if (expiredTokens.Count < 1)
                 return;
 
-            SettableBlockedTokenRepository.DeleteMany(expiredTokens);
-            await SettableBlockedTokenRepository.SaveAsync();
+            BlockedTokenRepository.DeleteMany(expiredTokens);
+            await BlockedTokenRepository.SaveAsync();
         }
         catch (Exception e)
         {

@@ -18,9 +18,8 @@ public interface IChangeEmailService
 }
 
 public class ChangeEmailService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
+    IUserRepository userRepository,
+    IBlockedTokenRepository blockedTokenRepository,
     ITokenWriteService tokenWriteService,
     ITokenReadService tokenReadService,
     ITokenValidationService tokenValidationService,
@@ -48,11 +47,11 @@ public class ChangeEmailService(
             throw new NotifyingException($"pleaseCheckYourNewEmailForLinkOrRetryAfter2hours");
         }
         user.NewEmail = changeEmail.NewEmail;
-        await gettableUserRepository.SaveAsync();
+        await userRepository.SaveAsync();
 
         tokenWriteService.WriteChangeEmailToken(user, out string token);
         user.ChangeEmailDateTime = DateTime.Now;
-        await gettableUserRepository.SaveAsync();
+        await userRepository.SaveAsync();
 
         _ = Task.Run(() =>
         {
@@ -75,14 +74,14 @@ public class ChangeEmailService(
             Token = ceToken,
             DateTime = DateTime.Now
         };
-        settableBlockedTokenRepository.Create(blockedChangeEmailToken, "BlockedChangeEmailToken");
-        settableBlockedTokenRepository.Save();
+        blockedTokenRepository.Create(blockedChangeEmailToken, "BlockedChangeEmailToken");
+        blockedTokenRepository.Save();
     }
 
     private void VerifyChangeEmailKey(string token, out User? user)
     {
         if (
-            gettableBlockedTokenRepository.Has(bt =>
+            blockedTokenRepository.Has(bt =>
                 bt.Token == token && bt.Discriminator == "BlockedChangeEmailToken"
             )
         )
@@ -96,7 +95,7 @@ public class ChangeEmailService(
         }
 
         var userId = tokenReadService.GetUserId(tokenD);
-        user = gettableUserRepository.GetById(userId);
+        user = userRepository.Get(u=> u.Id.Equals(userId));
         if (user == null)
         {
             throw new TokenDataException("dataInvalidAuthorizationKey");

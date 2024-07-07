@@ -23,9 +23,8 @@ public interface IResetPasswordService
 }
 
 public class ResetPasswordService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
+    IUserRepository userRepository,
+    IBlockedTokenRepository blockedTokenRepository,
     ITokenWriteService tokenWriteService,
     ITokenReadService tokenReadService,
     ITokenValidationService tokenValidationService,
@@ -36,7 +35,7 @@ public class ResetPasswordService(
 {
     public void InitResetPassword(string email, bool firstPassword, out string rToken, bool manual)
     {
-        User? user = gettableUserRepository.GetByEmail(email);
+        User? user = userRepository.Get(u=> u.Email.Equals(email));
         if (user == null)
         {
             throw new UserDoesNotExistException("userDoesNotExist");
@@ -60,7 +59,7 @@ public class ResetPasswordService(
         tokenWriteService.WriteResetPasswordToken(user, out string token);
         rToken = token;
         user.ResetPasswordDateTime = DateTime.Now;
-        gettableUserRepository.Save();
+        userRepository.Save();
 
         _ = Task.Run(() =>
         {
@@ -75,7 +74,7 @@ public class ResetPasswordService(
     {
         if (
             (
-                gettableBlockedTokenRepository.Has(t =>
+                blockedTokenRepository.Has(t =>
                     t.Token == token && t.Discriminator == "BlockedResetPasswordToken"
                 )
             )
@@ -90,7 +89,7 @@ public class ResetPasswordService(
         }
 
         var userId = tokenReadService.GetUserId(tokenD);
-        user = gettableUserRepository.GetById(userId);
+        user = userRepository.Get(u=>u.Id.Equals(userId));
         if (user == null)
         {
             throw new TokenDataException("dataInvalidAuthorizationKey");
@@ -117,10 +116,10 @@ public class ResetPasswordService(
             Token = t,
             DateTime = DateTime.Now
         };
-        settableBlockedTokenRepository.Create(
+        blockedTokenRepository.Create(
             blockedResetPasswordToken,
             "BlockedResetPasswordToken"
         );
-        settableBlockedTokenRepository.Save();
+        blockedTokenRepository.Save();
     }
 }

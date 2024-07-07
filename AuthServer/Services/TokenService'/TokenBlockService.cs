@@ -21,18 +21,14 @@ public interface ITokenBlockService
 }
 
 public class TokenBlockService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
     : BaseTokenService(
-        gettableSessionTokenRepository,
-        settableSessionTokenRepository,
+        sessionTokenRepository,
         jwtOptions,
-        gettableBlockedTokenRepository,
-        settableBlockedTokenRepository
+        blockedTokenRepository
     ),
         ITokenBlockService
 {
@@ -43,14 +39,14 @@ public class TokenBlockService(
             throw new Exception("noAuthorizationKeyProvided");
         }
         var blockedToken = new BlockedToken { Token = token!, DateTime = DateTime.Now };
-        SettableBlockedTokenRepository.Create(blockedToken, "BlockedToken");
+        BlockedTokenRepository.Create(blockedToken, "BlockedToken");
 
-        var st = GettableSessionTokenRepository.Get(s => s.Token.Equals(token));
+        var st = await SessionTokenRepository.GetAsync(s => s.Token.Equals(token));
         if (st != null)
         {
-            SettableSessionTokenRepository.DeleteMany([st]);
+            SessionTokenRepository.DeleteMany([st]);
         }
-        await SettableSessionTokenRepository.SaveAsync();
+        await SessionTokenRepository.SaveAsync();
     }
 
     public async Task BlockRefresh(string? refreshToken)
@@ -65,43 +61,43 @@ public class TokenBlockService(
             Token = refreshToken!,
             DateTime = DateTime.Now
         };
-        SettableBlockedTokenRepository.Create(blockedRefreshToken, "BlockedRefreshToken");
-        await SettableBlockedTokenRepository.SaveAsync();
+        BlockedTokenRepository.Create(blockedRefreshToken, "BlockedRefreshToken");
+        await BlockedTokenRepository.SaveAsync();
     }
 
     public bool IsTokenBlocked(string token)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(token);
+        var dbTk = BlockedTokenRepository.Get(bt=> bt.Token == token);
         return dbTk != null;
     }
 
     public bool IsDeviceVerificationTokenBlocked(string token)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(token);
+        var dbTk = BlockedTokenRepository.Get(bt=> bt.Token == token);;
         return dbTk != null;
     }
 
     public bool IsVerificationTokenBlocked(string token)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(token);
+        var dbTk = BlockedTokenRepository.Get(bt=> bt.Token == token);;
         return dbTk != null;
     }
 
     public bool IsChangeEmailTokenBlocked(string token)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(token);
+        var dbTk = BlockedTokenRepository.Get(bt=> bt.Token == token);;
         return dbTk != null;
     }
 
     public bool IsResetPasswordTokenBlocked(string token)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(token);
+        var dbTk = BlockedTokenRepository.Get(bt=> bt.Token == token);;
         return dbTk != null;
     }
 
     public bool IsTokenRefreshBlocked(string refreshToken)
     {
-        var dbTk = GettableBlockedTokenRepository.GetByToken(refreshToken);
+        var dbTk = BlockedTokenRepository.Get(t=> t.Token == refreshToken);
         return dbTk != null;
     }
 }

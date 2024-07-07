@@ -14,13 +14,11 @@ using Microsoft.Extensions.Options;
 namespace authServer.Services.AuthService.FactoryAuthService;
 
 public abstract class BaseAuthService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    IGettableLicenceRepository gettableLicenceRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
-    ISettableNotificationRepository settableNotificationRepository,
+    IUserRepository userRepository,
+    IBlockedTokenRepository blockedTokenRepository,
+    ILicenceRepository licenceRepository,
+    ISessionTokenRepository sessionTokenRepository,
+    INotificationRepository settableNotificationRepository,
     IMapper mapper,
     ITokenBlockService tokenBlockService,
     ITokenExpiredRemovalService tokenExpiredRemovalService,
@@ -36,16 +34,13 @@ public abstract class BaseAuthService(
     IAuthDataAccessor authDataAccessor
 )
 {
-    protected IGettableUserRepository GettableUserRepository = gettableUserRepository;
-    protected ISettableUserRepository SettableUserRepository = settableUserRepository;
-    protected ISettableBlockedTokenRepository SettableBlockedTokenRepository =
-        settableBlockedTokenRepository;
-    protected IGettableBlockedTokenRepository GettableBlockedTokenRepository =
-        gettableBlockedTokenRepository;
-    protected IGettableLicenceRepository GettableLicenceRepository = gettableLicenceRepository;
-    protected ISettableSessionTokenRepository SettableSessionTokenRepository =
-        settableSessionTokenRepository;
-    protected ISettableNotificationRepository SettableNotificationRepository =
+    protected IUserRepository UserRepository = userRepository;
+    protected IBlockedTokenRepository BlockedTokenRepository =
+        blockedTokenRepository;
+    protected ILicenceRepository LicenceRepository = licenceRepository;
+    protected ISessionTokenRepository SessionTokenRepository =
+        sessionTokenRepository;
+    protected INotificationRepository SettableNotificationRepository =
         settableNotificationRepository;
     protected IMapper Mapper = mapper;
     protected ITokenBlockService TokenBlockService = tokenBlockService;

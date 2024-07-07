@@ -19,8 +19,7 @@ public class UserAdminService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -28,8 +27,7 @@ public class UserAdminService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -37,7 +35,7 @@ public class UserAdminService(
 {
     public List<UserDto> GetAdminUsers(User user)
     {
-        return GettableUserRepository
+        return UserRepository
             .GetAdminUsers(user)
             .Select(u => Mapper.Map<UserDto>(u))
             .ToList();

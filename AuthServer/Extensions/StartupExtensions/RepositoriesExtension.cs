@@ -10,15 +10,12 @@ public static class RepositoriesExtension
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IGettableUserRepository, GettableUserRepository>();
-        services.AddScoped<ISettableUserRepository, SettableUserRepository>();
-        services.AddScoped<IGettableLicenceRepository, GettableLicenceRepository>();
-        services.AddScoped<ISettableLicenceRepository, SettableLicenceRepository>();
-        services.AddScoped<IGettableBlockedTokenRepository, GettableBlockedTokenRepository>();
-        services.AddScoped<ISettableBlockedTokenRepository, SettableBlockedTokenRepository>();
-        services.AddScoped<ISettableSessionTokenRepository, SettableSessionTokenRepository>();
-        services.AddScoped<IGettableSessionTokenRepository, GettableSessionTokenRepository>();
-        services.AddScoped<ISettableNotificationRepository, SettableNotificationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILicenceRepository, LicenceRepository>();
+        services.AddScoped<IBlockedTokenRepository, BlockedTokenRepository>();
+        services.AddScoped<ISessionTokenRepository, SessionTokenRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
         return services;
     }
 }

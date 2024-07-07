@@ -16,18 +16,14 @@ public interface ITokenReadService
 }
 
 public class TokenReadService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
     : BaseTokenService(
-        gettableSessionTokenRepository,
-        settableSessionTokenRepository,
+        sessionTokenRepository,
         jwtOptions,
-        gettableBlockedTokenRepository,
-        settableBlockedTokenRepository
+        blockedTokenRepository
     ),
         ITokenReadService
 {

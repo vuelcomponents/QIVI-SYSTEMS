@@ -8,22 +8,16 @@ using Microsoft.IdentityModel.Tokens;
 namespace authServer.Services.TokenService_.FactoryTokenService;
 
 public abstract class BaseTokenService(
-    IGettableSessionTokenRepository gettableSessionTokenRepository,
-    ISettableSessionTokenRepository settableSessionTokenRepository,
+    ISessionTokenRepository sessionTokenRepository,
     IOptions<JwtOptions> jwtOptions,
-    IGettableBlockedTokenRepository gettableBlockedTokenRepository,
-    ISettableBlockedTokenRepository settableBlockedTokenRepository
+    IBlockedTokenRepository blockedTokenRepository
 )
 {
-    protected IGettableSessionTokenRepository GettableSessionTokenRepository =
-        gettableSessionTokenRepository;
-    protected ISettableSessionTokenRepository SettableSessionTokenRepository =
-        settableSessionTokenRepository;
+    protected ISessionTokenRepository SessionTokenRepository =
+        sessionTokenRepository;
     protected IOptions<JwtOptions> JwtOptions = jwtOptions;
-    protected IGettableBlockedTokenRepository GettableBlockedTokenRepository =
-        gettableBlockedTokenRepository;
-    protected ISettableBlockedTokenRepository SettableBlockedTokenRepository =
-        settableBlockedTokenRepository;
+    protected IBlockedTokenRepository BlockedTokenRepository =
+        blockedTokenRepository;
 
     protected static TokenValidationParameters GetValidationParameters(string secret)
     {

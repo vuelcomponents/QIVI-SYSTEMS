@@ -25,10 +25,10 @@ public sealed class AuthDevice : ActionFilterAttribute
         var dataAccessor =
             context.HttpContext.RequestServices.GetRequiredService<IAuthDataAccessor>();
         var userRepository =
-            context.HttpContext.RequestServices.GetRequiredService<IGettableUserRepository>();
+            context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
         Int64 userId = tokenReadService.GetUserId(token!);
-        User? user = userRepository.GetByIdIncludeAll(userId);
+        User? user = userRepository.GetAndIncludeAll(u=>u.Id.Equals(userId));
         if (user == null || user.Blocked)
         {
             context.Result = new UnauthorizedResult();

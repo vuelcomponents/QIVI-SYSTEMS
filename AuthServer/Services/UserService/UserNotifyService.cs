@@ -21,8 +21,7 @@ public class UserNotifyService(
     IMapper mapper,
     IQuickActions quickActions,
     IMailerVerificationService mailerVerificationService,
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     ITokenWriteService tokenWriteService,
     IOptions<JwtOptions> jwtOptions
 )
@@ -30,8 +29,7 @@ public class UserNotifyService(
         mapper,
         quickActions,
         mailerVerificationService,
-        gettableUserRepository,
-        settableUserRepository,
+        userRepository,
         tokenWriteService,
         jwtOptions
     ),
@@ -44,14 +42,14 @@ public class UserNotifyService(
         foreach (var u in users)
         {
             var dbUser =
-                await GettableUserRepository.GetByIdAsync(u.Id, (dbU => dbU.Notifications))
+                await UserRepository.GetAsync((dbU=>dbU.Id.Equals(u.Id)),(dbU => dbU.Notifications))
                 ?? throw new UserDoesNotExistException();
             if (dbUser.Notifications.Count > 10)
             {
                 dbUser.Notifications.Remove(dbUser.Notifications.MinBy(n => n.TimeStamp)!);
             }
             dbUser.Notifications.Add(Mapper.Map<Notification>(notification));
-            await GettableUserRepository.SaveAsync();
+            await UserRepository.SaveAsync();
         }
         return notification;
     }

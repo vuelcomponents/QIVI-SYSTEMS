@@ -12,15 +12,14 @@ public interface IChangePasswordService
 }
 
 public class ChangePasswordService(
-    IGettableUserRepository gettableUserRepository,
-    ISettableUserRepository settableUserRepository,
+    IUserRepository userRepository,
     IMapper mapper,
     IHashService hashService
 ) : IChangePasswordService
 {
     public async Task<UserDto> ChangePassword(Int64 userId, NewPasswordDto newPassword)
     {
-        User dbUser = (await gettableUserRepository.GetByIdAsync(userId))!;
+        User dbUser = (await userRepository.GetAsync(u=> u.Id.Equals(userId)))!;
         if (!hashService.VerifyHash(newPassword.OldPassword, dbUser.Password, dbUser.Salt))
         {
             throw new IncorrectFormDataException("incorrectOldPassword");
@@ -37,7 +36,7 @@ public class ChangePasswordService(
         );
         dbUser.Password = passwordHash;
         dbUser.Salt = passwordSalt;
-        await settableUserRepository.SaveAsync();
+        await userRepository.SaveAsync();
         return mapper.Map<UserDto>(dbUser);
     }
 }
