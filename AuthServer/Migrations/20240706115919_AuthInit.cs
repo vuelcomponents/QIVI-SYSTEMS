@@ -385,7 +385,7 @@ namespace authServer.Migrations
                     1L,
                     "LI:Super::HRTechnique",
                     new DateTime(2024, 8, 6, 13, 59, 19, 71, DateTimeKind.Local).AddTicks(2394),
-                    "http://192.168.1.81:1830",
+                    "http://192.168.1.77:1830",
                     "mdi mdi-language-r",
                     (short)5,
                     0,

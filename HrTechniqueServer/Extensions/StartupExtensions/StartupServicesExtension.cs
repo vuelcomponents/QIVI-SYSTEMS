@@ -6,7 +6,6 @@ public static class StartupServicesExtension
 {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IEmployeeService, EmployeeService>();
         return services;
     }
 

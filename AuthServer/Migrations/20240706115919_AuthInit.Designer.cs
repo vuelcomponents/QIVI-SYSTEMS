@@ -189,7 +189,7 @@ namespace authServer.Migrations
                             Id = 1L,
                             Code = "LI:Super::HRTechnique",
                             EndTimeStamp = new DateTime(2024, 8, 6, 13, 59, 19, 71, DateTimeKind.Local).AddTicks(2394),
-                            Host = "http://192.168.1.81:1830",
+                            Host = "http://192.168.1.77:1830",
                             Icon = "mdi mdi-language-r",
                             MaxUsersQty = (short)5,
                             Software = 0,

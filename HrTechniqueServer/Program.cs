@@ -1,5 +1,5 @@
-using HrTechniqueServer.Data;
 using HrTechniqueServer.Extensions.StartupExtensions;
+using HrTechniqueServer.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
+builder.Services.AddMediator();
 builder.Services.AddSharedTools();
 builder.Services.AddAuthConnector();
 builder.Services.AddRepositories();
