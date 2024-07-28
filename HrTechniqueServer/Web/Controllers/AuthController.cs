@@ -1,21 +1,22 @@
 ﻿using ClassLibrary.Dtos.Auth;
 using HrTechniqueServer.Infrastructure.Clients;
 using HrTechniqueServer.Infrastructure.Filters;
+using HrTechniqueServer.Shared.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HrTechniqueServer.Web.Controllers;
 
 [ApiController]
-[AuthorizedMicro]
+[AuthorizedMicroFilter]
 [Route("auth")]
-public sealed class AuthController(AuthClient authClient) : ControllerBase
+public sealed class AuthController(AuthClient authClient, IAuthResource authResource) : ControllerBase
 {
     [HttpGet("authorized")]
-    public ActionResult<AuthResponse> Authorized()
+    public ActionResult<AuthResponseShort> Authorized()
     {
         try
         {
-            return Ok(HttpContext.Items["Auth"]);
+            return Ok(authResource.AuthResponse);
         }
         catch (Exception e)
         {

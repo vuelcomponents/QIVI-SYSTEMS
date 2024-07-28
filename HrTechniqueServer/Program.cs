@@ -13,6 +13,7 @@ builder.Services.AddMediator();
 builder.Services.AddSharedTools();
 builder.Services.AddClients();
 builder.Services.AddRepositories();
+builder.Services.AddResources();
 builder.Services.AddAndConfigureCors();
 builder.Services.AddServices();
 builder.Services.AddAndConfigureSwagger();

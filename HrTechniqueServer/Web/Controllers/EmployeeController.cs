@@ -2,15 +2,16 @@
 using HrTechniqueServer.Features.Employee.Commands;
 using HrTechniqueServer.Features.Employee.Queries;
 using HrTechniqueServer.Infrastructure.Filters;
+using HrTechniqueServer.Shared.Resources;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HrTechniqueServer.Web.Controllers;
 
 [ApiController]
-[AuthorizedMicro]
+[AuthorizedMicroFilter]
 [Route("employee")]
-public sealed class EmployeeController(IMediator mediator)
+public sealed class EmployeeController(IMediator mediator, IAuthResource authResource)
     : BaseCrudController<
         EmployeeDto,
         CreateEmployeeCommand,
@@ -18,7 +19,7 @@ public sealed class EmployeeController(IMediator mediator)
         DeleteManyEmployeeCommand,
         GetEmployeeByIdQuery,
         GetAllEmployeeQuery
-    >(mediator)
+    >(mediator, authResource)
 {
     /* Mediator Pattern before generics -> Vertical Slices 
         [HttpGet("get/{id}")]

@@ -1,6 +1,6 @@
 ﻿namespace HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
 
-public static class MediatorExtension
+public static class StartupMediatorExtension
 {
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {

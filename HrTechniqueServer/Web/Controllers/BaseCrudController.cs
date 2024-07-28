@@ -1,5 +1,5 @@
-﻿using ClassLibrary.Dtos.Auth;
-using ClassLibrary.Dtos.SharedDtos;
+﻿using ClassLibrary.Dtos.SharedDtos;
+using HrTechniqueServer.Shared.Resources;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,7 @@ public abstract class BaseCrudController<
     TDeleteCommand,
     TGetQuery,
     TGetAllQuery
->(IMediator mediator) : ControllerBase
+>(IMediator mediator, IAuthResource authResource) : ControllerBase
     where TDto : class
     where TCreateCommand : IRequest<TDto>
     where TUpdateCommand : IRequest<TDto>
@@ -59,7 +59,7 @@ public abstract class BaseCrudController<
                 Activator.CreateInstance(
                     typeof(TCreateCommand),
                     dto,
-                    (HttpContext.Items["User"] as UserShortDto)!
+                    authResource.User!
                 )!;
             var result = await mediator.Send(command);
             return Ok(result);
