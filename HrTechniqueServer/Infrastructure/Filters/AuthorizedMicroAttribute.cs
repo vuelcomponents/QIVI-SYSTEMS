@@ -1,20 +1,20 @@
 ﻿using ClassLibrary.Dtos.Auth;
 using ClassLibrary.Enums;
-using HrTechniqueServer.Services;
+using HrTechniqueServer.Infrastructure.Clients;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace HrTechniqueServer.Filters;
+namespace HrTechniqueServer.Infrastructure.Filters;
 
 public class AuthorizedMicroAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var authConnector =
-            context.HttpContext.RequestServices.GetRequiredService<IAuthServiceConnector>();
+        var authClient =
+            context.HttpContext.RequestServices.GetRequiredService<AuthClient>();
         try
         {
-            AuthResponseShort userExchange = authConnector.GetSync<AuthResponseShort>(
+            AuthResponseShort userExchange = authClient.GetSync<AuthResponseShort>(
                 "auth/authorized"
             );
 

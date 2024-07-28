@@ -1,64 +1,78 @@
-﻿using ClassLibrary.Enums;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 
-namespace HrTechniqueServer.Services;
+namespace HrTechniqueServer.Infrastructure.Clients;
 
-public sealed class AuthServiceConnector(IHttpContextAccessor httpContextAccessor)
-    : IAuthServiceConnector
+public abstract class BaseClient(IHttpContextAccessor httpContextAccessor)
 {
-    private readonly RestClient _client = new(Urls.GetAssociatedUrl(Urls.Name.AuthServer));
-
-    public T GetSync<T>(string path)
-        where T : class
+    protected abstract RestClient Client { get; }
+    
+    public virtual T GetSync<T>(string path, Action<Exception>? onException = null)
     {
         var request = new RestRequest($"{path}");
 
         var r = CollectRequestSensitiveData(request, path);
 
-        var response = _client.Execute(r);
+        var response = Client.Execute(r);
 
         if (response.ErrorException != null)
         {
-            Console.WriteLine(response.ErrorException.Message);
-            throw new UnauthorizedAccessException();
+            if (onException != null)
+            {
+                onException(response.ErrorException);
+                return default!;
+            }
+            ThrowException(response.ErrorException);
         }
         var responseData = response.Content!;
         return JsonConvert.DeserializeObject<T>(responseData)!;
     }
 
-    public async Task<T> Get<T>(string path)
-        where T : class
+    public virtual async Task<T> Get<T>(string path, Action<Exception>? onException = null)
     {
         var request = new RestRequest($"{path}");
 
         var r = CollectRequestSensitiveData(request, path);
 
-        var response = await _client.ExecuteAsync(r);
+        var response = await Client.ExecuteAsync(r);
 
         if (response.ErrorException != null)
         {
-            throw new UnauthorizedAccessException();
+            if (onException != null)
+            {
+                onException(response.ErrorException);
+                return default!;
+            }
+            ThrowException(response.ErrorException);
         }
         var responseData = response.Content!;
         return JsonConvert.DeserializeObject<T>(responseData)!;
     }
 
-    public async Task Call(string path)
+    public virtual async Task Call(string path, Action<Exception>? onException = null)
     {
         var request = new RestRequest($"{path}");
 
         var r = CollectRequestSensitiveData(request, path);
 
-        var response = await _client.ExecuteAsync(r);
+        var response = await Client.ExecuteAsync(r);
 
         if (response.ErrorException != null)
         {
-            throw new UnauthorizedAccessException();
+            if (onException != null)
+            {
+               onException(response.ErrorException);
+               return;
+            }
+            ThrowException(response.ErrorException);
         }
     }
-
-    private RestRequest CollectRequestSensitiveData(RestRequest request, string path)
+    protected virtual void ThrowException(Exception e)
+    {
+        Console.WriteLine(e.Message);
+        throw e;
+    }
+    protected virtual RestRequest CollectRequestSensitiveData(RestRequest request, string path)
     {
         var context = httpContextAccessor.HttpContext;
         var contextRequest = context!.Request;

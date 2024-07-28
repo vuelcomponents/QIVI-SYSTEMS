@@ -1,4 +1,4 @@
-﻿using HrTechniqueServer.Options;
+﻿using HrTechniqueServer.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

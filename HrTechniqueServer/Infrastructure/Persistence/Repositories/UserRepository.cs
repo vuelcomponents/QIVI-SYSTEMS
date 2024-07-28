@@ -1,7 +1,7 @@
 ﻿using ClassLibrary.Dtos.Auth;
 using ClassLibrary.Models;
-using HrTechniqueServer.Exceptions;
-using HrTechniqueServer.Services;
+using HrTechniqueServer.Domain.Exceptions;
+using HrTechniqueServer.Infrastructure.Clients;
 
 namespace HrTechniqueServer.Infrastructure.Persistence.Repositories;
 
@@ -10,8 +10,8 @@ public interface IUserRepository
     Task<UserShortDto> GetUserById(long? id);
 }
 
-public class UserRepository(IAuthServiceConnector authServiceConnector)
-    : BaseAuthRepository<User>(authServiceConnector),
+public class UserRepository(AuthClient authClient)
+    : BaseAuthRepository<User>(authClient),
         IUserRepository
 {
     public async Task<UserShortDto> GetUserById(long? id)
@@ -20,6 +20,6 @@ public class UserRepository(IAuthServiceConnector authServiceConnector)
         {
             throw new IdNotProvidedException();
         }
-        return await AuthServiceConnector.Get<UserShortDto>($"integration/get-user-by-id/{id}");
+        return await AuthClient.Get<UserShortDto>($"integration/get-user-by-id/{id}");
     }
 }

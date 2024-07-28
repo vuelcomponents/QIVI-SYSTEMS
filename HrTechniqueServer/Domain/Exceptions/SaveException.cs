@@ -1,4 +1,4 @@
-﻿namespace HrTechniqueServer.Exceptions;
+﻿namespace HrTechniqueServer.Domain.Exceptions;
 
 public class SaveException(string? message) : Exception(message)
 {

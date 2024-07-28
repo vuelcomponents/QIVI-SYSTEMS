@@ -26,7 +26,7 @@ public interface IAddableRepo<T>
     T Create(T entity);
 }
 
-public interface IDeletableRepo<T>
+public interface IDeletableRepo
 {
     Task DeleteManyByIdDtoList(List<IdDto> entities);
 }
@@ -43,8 +43,9 @@ public interface IQuestionableRepo<T>
 }
 
 public abstract class BaseRepository<T>(HrtDataContext hrtDataContext)
-    : IWritableRepo,
-        IGettableRepo<T>
+    : IWritableRepo, 
+      IGettableRepo<T>,
+      IDeletableRepo 
     where T : class
 {
     protected readonly HrtDataContext HrtDataContext = hrtDataContext;

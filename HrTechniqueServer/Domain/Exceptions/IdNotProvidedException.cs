@@ -1,4 +1,4 @@
-﻿namespace HrTechniqueServer.Exceptions;
+﻿namespace HrTechniqueServer.Domain.Exceptions;
 
 public class IdNotProvidedException(string? message) : Exception(message)
 {

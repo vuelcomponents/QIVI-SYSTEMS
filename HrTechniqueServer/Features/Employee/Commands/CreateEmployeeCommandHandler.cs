@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HrTechniqueServer.Dto;
+using HrTechniqueServer.Domain.Dto;
 using HrTechniqueServer.Infrastructure.Persistence.Repositories;
 using MediatR;
 

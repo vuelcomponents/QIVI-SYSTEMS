@@ -1,4 +1,4 @@
-﻿namespace HrTechniqueServer.Exceptions;
+﻿namespace HrTechniqueServer.Domain.Exceptions;
 
 public class UserDoesNotExistException(string? message) : Exception(message)
 {

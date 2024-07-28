@@ -1,5 +1,5 @@
 ﻿using HrTechniqueServer.Domain.Entities;
-using HrTechniqueServer.Dto;
+using HrTechniqueServer.Domain.Dto;
 
 namespace HrTechniqueServer;
 

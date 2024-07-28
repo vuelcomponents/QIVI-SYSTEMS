@@ -1,4 +1,4 @@
-using HrTechniqueServer.Extensions.StartupExtensions;
+using HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
 using HrTechniqueServer.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +11,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
 builder.Services.AddMediator();
 builder.Services.AddSharedTools();
-builder.Services.AddAuthConnector();
+builder.Services.AddClients();
 builder.Services.AddRepositories();
 builder.Services.AddAndConfigureCors();
 builder.Services.AddServices();

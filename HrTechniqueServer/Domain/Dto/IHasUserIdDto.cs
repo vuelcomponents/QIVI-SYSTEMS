@@ -1,7 +1,6 @@
-﻿using ClassLibrary.Dtos;
-using ClassLibrary.Dtos.Auth;
+﻿using ClassLibrary.Dtos.Auth;
 
-namespace HrTechniqueServer.Dto;
+namespace HrTechniqueServer.Domain.Dto;
 
 public interface IHasUserIdDto
 {

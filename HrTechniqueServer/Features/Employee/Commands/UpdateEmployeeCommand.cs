@@ -1,4 +1,4 @@
-﻿using HrTechniqueServer.Dto;
+﻿using HrTechniqueServer.Domain.Dto;
 using MediatR;
 
 namespace HrTechniqueServer.Features.Employee.Commands;

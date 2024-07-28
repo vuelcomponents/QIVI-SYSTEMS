@@ -1,6 +1,6 @@
 ﻿using ClassLibrary.Enums;
 
-namespace HrTechniqueServer.Extensions.StartupExtensions;
+namespace HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
 
 public static class StartupCorsExtension
 {

@@ -1,4 +1,4 @@
-﻿using HrTechniqueServer.Exceptions;
+﻿using HrTechniqueServer.Domain.Exceptions;
 using HrTechniqueServer.Infrastructure.Persistence.Repositories;
 using MediatR;
 

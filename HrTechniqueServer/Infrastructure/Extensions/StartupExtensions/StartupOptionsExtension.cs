@@ -1,6 +1,6 @@
-﻿using HrTechniqueServer.Options;
+﻿using HrTechniqueServer.Infrastructure.Options;
 
-namespace HrTechniqueServer.Extensions.StartupExtensions;
+namespace HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
 
 public static class StartupOptionsExtension
 {

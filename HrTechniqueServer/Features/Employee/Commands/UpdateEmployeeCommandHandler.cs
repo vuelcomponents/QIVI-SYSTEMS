@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ClassLibrary.Utils;
-using HrTechniqueServer.Dto;
-using HrTechniqueServer.Exceptions;
+using HrTechniqueServer.Domain.Dto;
+using HrTechniqueServer.Domain.Exceptions;
 using HrTechniqueServer.Infrastructure.Persistence.Repositories;
 using MediatR;
 

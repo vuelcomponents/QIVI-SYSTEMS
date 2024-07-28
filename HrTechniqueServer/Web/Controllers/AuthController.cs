@@ -1,6 +1,6 @@
 ﻿using ClassLibrary.Dtos.Auth;
-using HrTechniqueServer.Filters;
-using HrTechniqueServer.Services;
+using HrTechniqueServer.Infrastructure.Clients;
+using HrTechniqueServer.Infrastructure.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HrTechniqueServer.Web.Controllers;
@@ -8,7 +8,7 @@ namespace HrTechniqueServer.Web.Controllers;
 [ApiController]
 [AuthorizedMicro]
 [Route("auth")]
-public sealed class AuthController(IAuthServiceConnector authServiceConnector) : ControllerBase
+public sealed class AuthController(AuthClient authClient) : ControllerBase
 {
     [HttpGet("authorized")]
     public ActionResult<AuthResponse> Authorized()
@@ -26,7 +26,7 @@ public sealed class AuthController(IAuthServiceConnector authServiceConnector) :
     [HttpGet("logout")]
     public async Task<IActionResult> Logout()
     {
-        await authServiceConnector.Call("auth/logout");
+        await authClient.Call("auth/logout");
         return Ok();
     }
 
@@ -35,7 +35,7 @@ public sealed class AuthController(IAuthServiceConnector authServiceConnector) :
     {
         try
         {
-            return Ok(await authServiceConnector.Get<List<NotificationDto>>("auth/notifications"));
+            return Ok(await authClient.Get<List<NotificationDto>>("auth/notifications"));
         }
         catch (Exception e)
         {
@@ -48,7 +48,7 @@ public sealed class AuthController(IAuthServiceConnector authServiceConnector) :
     {
         try
         {
-            await authServiceConnector.Get<List<NotificationDto>>($"auth/notifications-seen/{id}");
+            await authClient.Get<List<NotificationDto>>($"auth/notifications-seen/{id}");
             return Ok();
         }
         catch (Exception e)

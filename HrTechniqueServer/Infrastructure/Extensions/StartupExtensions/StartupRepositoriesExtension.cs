@@ -1,6 +1,6 @@
 ﻿using HrTechniqueServer.Infrastructure.Persistence.Repositories;
 
-namespace HrTechniqueServer.Extensions.StartupExtensions;
+namespace HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
 
 public static class StartupRepositoriesExtension
 {

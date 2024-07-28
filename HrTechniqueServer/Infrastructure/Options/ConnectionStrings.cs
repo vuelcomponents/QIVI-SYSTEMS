@@ -1,4 +1,4 @@
-﻿namespace HrTechniqueServer.Options;
+﻿namespace HrTechniqueServer.Infrastructure.Options;
 
 public class ConnectionStrings
 {
