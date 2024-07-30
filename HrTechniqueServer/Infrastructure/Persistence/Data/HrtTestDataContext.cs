@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HrTechniqueServer.Infrastructure.Persistence;
+namespace HrTechniqueServer.Infrastructure.Persistence.Data;
 
 public class HrtTestDataContext : HrtBaseDataContext
 {

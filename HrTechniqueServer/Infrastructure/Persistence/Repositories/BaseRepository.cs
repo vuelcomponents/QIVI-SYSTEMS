@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using ClassLibrary.Dtos.SharedDtos;
+using HrTechniqueServer.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Z.EntityFramework.Plus;
 

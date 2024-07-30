@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using File = HrTechniqueServer.Domain.Entities.File;
 
-namespace HrTechniqueServer.Infrastructure.Persistence;
+namespace HrTechniqueServer.Infrastructure.Persistence.Data;
 
 public class HrtBaseDataContext : DbContext
 {

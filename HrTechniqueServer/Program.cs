@@ -1,5 +1,5 @@
 using HrTechniqueServer.Infrastructure.Extensions.StartupExtensions;
-using HrTechniqueServer.Infrastructure.Persistence;
+using HrTechniqueServer.Infrastructure.Persistence.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
